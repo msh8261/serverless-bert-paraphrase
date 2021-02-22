@@ -36,17 +36,16 @@ def load_model_from_s3(model_path: str, s3_bucket: str, file_prefix: str):
 		bytestream = io.BytesIO(obj['Body'].read())
 		tar = tarfile.open(fileobj=bytestream, mode="r:gz")
 		config = AutoConfig.from_pretrained(f'{model_path}/config.json')
-		tokenizer = AutoTokenizer.from_pretrained(model_path)
-		model = AutoModelForSequenceClassification.from_pretrained(pretrained_model_name_or_path=None, state_dict=state, config=config)
+		# tokenizer = AutoTokenizer.from_pretrained(model_path)
+		# model = AutoModelForSequenceClassification.from_pretrained(pretrained_model_name_or_path=None, state_dict=state, config=config)
 
-		# for member in tar.getmembers():
-		#     print(member)
-		#     if member.name.endswith(".bin"):
-		#         f = tar.extractfile(member)
-		#         state = torch.load(io.BytesIO(f.read()))
-		#         tokenizer = AutoTokenizer.from_pretrained(model_path)
-		#         #model = AutoModelForSequenceClassification.from_pretrained(model_path)
-		#         model = AutoModelForSequenceClassification.from_pretrained(pretrained_model_name_or_path=None, state_dict=state, config=config)
+		for member in tar.getmembers():
+		    print(member)
+		    if member.name.endswith(".bin"):
+		        f = tar.extractfile(member)
+		        state = torch.load(io.BytesIO(f.read()))
+		        tokenizer = AutoTokenizer.from_pretrained(model_path)
+		        model = AutoModelForSequenceClassification.from_pretrained(pretrained_model_name_or_path=None, state_dict=state, config=config)
 
 		return model, tokenizer
 	else:
