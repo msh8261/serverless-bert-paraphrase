@@ -1,15 +1,20 @@
+if __name__ == "__main__":
+	try:
+		import unzip_requirements
+	except ImportError:
+		pass
 
-#from __future__ import print_function
-import os
-import boto3
+	#from __future__ import print_function
+	import os
+	import boto3
 
-# os.environ['AWS_PROFILE'] = "MyProfile"
-# os.environ['AWS_DEFAULT_REGION'] = "us-east-2"
-import tarfile
-import json
-from transformers import AutoTokenizer, AutoModelForSequenceClassification, AutoConfig
-import torch
-import io
+	# os.environ['AWS_PROFILE'] = "MyProfile"
+	# os.environ['AWS_DEFAULT_REGION'] = "us-east-2"
+	import tarfile
+	import json
+	from transformers import AutoTokenizer, AutoModelForSequenceClassification, AutoConfig
+	import torch
+	import io
 
 
 
@@ -31,7 +36,7 @@ def load_model_from_s3(model_path: str, s3_bucket: str, file_prefix: str):
 		tar = tarfile.open(fileobj=bytestream, mode="r:gz")
 		config = AutoConfig.from_pretrained(f'{model_path}/config.json')
 		tokenizer = AutoTokenizer.from_pretrained(model_path)
-		model = AutoModelForSequenceClassification.from_pretrained(model_path)
+		model = AutoModelForSequenceClassification.from_pretrained(pretrained_model_name_or_path=None, state_dict=state, config=config)
 
 		# for member in tar.getmembers():
 		#     print(member)
@@ -85,11 +90,6 @@ def predict_answer(event, context):
 			}
 
 
-if __name__ == "__main__":
-	try:
-		import unzip_requirements
-	except ImportError:
-		pass
 
 
 
