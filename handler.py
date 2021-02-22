@@ -1,8 +1,8 @@
-if __name__ == "__main__":
-	try:
-		import unzip_requirements
-	except ImportError:
-		pass
+
+try:
+	import unzip_requirements
+except ImportError:
+	pass
 
 
 #from __future__ import print_function
