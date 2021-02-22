@@ -4,17 +4,18 @@ if __name__ == "__main__":
 	except ImportError:
 		pass
 
-	#from __future__ import print_function
-	import os
-	import boto3
 
-	# os.environ['AWS_PROFILE'] = "MyProfile"
-	# os.environ['AWS_DEFAULT_REGION'] = "us-east-2"
-	import tarfile
-	import json
-	from transformers import AutoTokenizer, AutoModelForSequenceClassification, AutoConfig
-	import torch
-	import io
+#from __future__ import print_function
+import os
+import boto3
+
+# os.environ['AWS_PROFILE'] = "MyProfile"
+# os.environ['AWS_DEFAULT_REGION'] = "us-east-2"
+import tarfile
+import json
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, AutoConfig
+import torch
+import io
 
 
 
@@ -22,10 +23,10 @@ if __name__ == "__main__":
 s3 = boto3.client('s3', region_name='us-east-2')
 print("[INFO:] Connecting to cloud")
 
-# Retrieves all regions/endpoints that work with S3
+model_path = './model-bert-clsssify'
+s3_bucket =  'bert-classify-para'
+file_prefix = 'bert-finetuned.tar.gz'
 
-# response = s3.list_buckets()
-# print('Regions:', response)
 
 
 def load_model_from_s3(model_path: str, s3_bucket: str, file_prefix: str):
@@ -53,12 +54,8 @@ def load_model_from_s3(model_path: str, s3_bucket: str, file_prefix: str):
 
 
 
-
-model_path = './model-bert-clsssify'
-s3_bucket =  'bert-classify-para'
-file_prefix = 'bert-finetuned.tar.gz'
-
 model, tokenizer = load_model_from_s3(model_path, s3_bucket, file_prefix)
+
 
 
 
