@@ -107,4 +107,3 @@ node_modules
 cache
 .requirements.zip
 layers/
-model-bert-clsssify/
