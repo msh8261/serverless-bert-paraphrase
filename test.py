@@ -8,7 +8,7 @@ event = {
         "sequence_1": "Apples are especially bad for your health"
         }
 
-url = "https://8ks4ls93bf.execute-api.us-east-2.amazonaws.com/dev/classify"
+url = "https://snhbnzw2dc.execute-api.us-east-2.amazonaws.com/dev/qa"
 
 r = requests.post(url, json=event)
 print("result without securely key: ", r.json())

@@ -1,3 +1,38 @@
-1- serverless create --template aws-python3 --path serverless-bert (to creat handler.py,serverless.yml)
-2- serverless plugin install -n serverless-python-requirements (Installing the plugin)
-2- serverless deploy
+# open with bash file from directory to work with aws acr
+# Note: take care for "" in dictionary never use '' in dictionary
+# Note: for running with ecr as docker image no need plugin sure to delete it in 
+  serverless file.
+
+# remove all images and container not working
+docker system prune -a
+
+# build our custom docker image we run
+docker build -t bert-lambda-docker .
+
+# test with postman for local host
+docker run -p 8080:8080 bert-lambda-docker
+http://192.168.99.100:8080/2015-03-31/functions/function/invocations
+
+# stop running docker
+docker container ls
+docker stop <container id>
+
+# Create an ECR repository
+1- aws ecr create-repository --repository-name bert-lambda-docker > /dev/null
+
+# Register docker to ECR
+2- aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 095518905647.dkr.ecr.us-east-2.amazonaws.com
+
+
+# tag / rename our previously created image to an ECR format
+3- docker tag bert-lambda-docker 095518905647.dkr.ecr.us-east-2.amazonaws.com/bert-lambda-docker
+
+
+# push the image to ECR Registry.
+4- docker push 095518905647.dkr.ecr.us-east-2.amazonaws.com/bert-lambda-docker
+
+# copy docker image in serverless.yaml
+5- copy the docker image of ecr in serverless file
+
+# deploy your app
+6- serverless deploy
