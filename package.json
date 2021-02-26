@@ -1,0 +1,12 @@
+{
+  "name": "CI_CD_pipeline",
+  "description": "",
+  "version": "0.1.0",
+  "dependencies": {},
+  "scripts": {
+    "deploy": "serverless deploy"
+  },
+  "devDependencies": {
+    "serverless": "^1.67.0",
+  }
+}
