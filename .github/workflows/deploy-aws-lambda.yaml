@@ -4,74 +4,111 @@ on:
     branches:
       - main
 
-jobs:
-  # continuous-integration:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-
-  #     - name: Set up Python all python version
-  #       uses: actions/setup-python@v2
-  #       with:
-  #         python-version: 3.8
-  #         architecture: x64
-
-  #     - name: Configure AWS Credentials
-  #       uses: aws-actions/configure-aws-credentials@v1
-  #       with:
-  #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  #         aws-region: us-east-2
-
-  #     - name: Install Python Virtual ENV
-  #       run: pip3 install virtualenv
-
-  #     - name:  Setup Virtual env
-  #       uses: actions/cache@v2
-  #       id: cache-venv
-  #       with:
-  #         path: venv
-  #         key: ${{ runner.os }}-venv-${{ hashFiles('**/requirements*.txt') }}
-  #         restore-keys: |
-  #           ${{ runner.os }}-venv-
-
-  #     - name: Activate and Install Depencies into Virtual env
-  #       run: python -m venv venv && source venv/bin/activate &&
-  #         pip3 install -r requirements.txt
-  #       if: steps.cache-venv.outputs.cache-hit != 'true'
-
-
-  #     # Install all the app dependencies
-  #     - name: Install dependencies
-  #       run: |
-  #         pip3 install -r requirements.txt
-
-
-
-  #     # Build the app and run tests
-  #     - name: Build and Run Test
-  #       run: . venv/bin/activate && pytest tests/test_handler.py
-  
+jobs: 
   continuous-deployment:
     runs-on: ubuntu-latest
     #needs: [continuous-integration]
     steps:  
-      - uses: actions/checkout@v2    
-      - name: Install Dependencies
-        run: |
-          npm install
-          npm install serverless --save-dev
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
+      - uses: actions/checkout@v2    
+      - name: Install Dependencies
+        run: |
+          npm install
+          npm install serverless --save-dev
       container:
         image: 095518905647.dkr.ecr.us-east-2.amazonaws.com/bert-lambda-docker@sha256:e41de8e7b397c5af138e8831f4b8855f77cf8322195f281500f177e2eb2164d5
-    
+      
       - name: Serverless Deploy
         run: node ./node_modules/serverless/bin/serverless deploy
+
+
+
+
+
+
+
+# name: deploy-aws-lambda
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   # continuous-integration:
+#   #   runs-on: ubuntu-latest
+#   #   steps:
+#   #     - uses: actions/checkout@v2
+
+#   #     - name: Set up Python all python version
+#   #       uses: actions/setup-python@v2
+#   #       with:
+#   #         python-version: 3.8
+#   #         architecture: x64
+
+#   #     - name: Configure AWS Credentials
+#   #       uses: aws-actions/configure-aws-credentials@v1
+#   #       with:
+#   #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#   #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#   #         aws-region: us-east-2
+
+#   #     - name: Install Python Virtual ENV
+#   #       run: pip3 install virtualenv
+
+#   #     - name:  Setup Virtual env
+#   #       uses: actions/cache@v2
+#   #       id: cache-venv
+#   #       with:
+#   #         path: venv
+#   #         key: ${{ runner.os }}-venv-${{ hashFiles('**/requirements*.txt') }}
+#   #         restore-keys: |
+#   #           ${{ runner.os }}-venv-
+
+#   #     - name: Activate and Install Depencies into Virtual env
+#   #       run: python -m venv venv && source venv/bin/activate &&
+#   #         pip3 install -r requirements.txt
+#   #       if: steps.cache-venv.outputs.cache-hit != 'true'
+
+
+#   #     # Install all the app dependencies
+#   #     - name: Install dependencies
+#   #       run: |
+#   #         pip3 install -r requirements.txt
+
+
+
+#   #     # Build the app and run tests
+#   #     - name: Build and Run Test
+#   #       run: . venv/bin/activate && pytest tests/test_handler.py
+  
+#   continuous-deployment:
+#     runs-on: ubuntu-latest
+#     #needs: [continuous-integration]
+#     steps:  
+#       - uses: actions/checkout@v2    
+#       - name: Install Dependencies
+#         run: |
+#           npm install
+#           npm install serverless --save-dev
+#       - name: Configure AWS Credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: us-east-2
+#       container:
+#        image: 095518905647.dkr.ecr.us-east-2.amazonaws.com/bert-lambda-docker@sha256:e41de8e7b397c5af138e8831f4b8855f77cf8322195f281500f177e2eb2164d5
+#       - name: Serverless Deploy
+#        run: node ./node_modules/serverless/bin/serverless deploy
+
+
+
+
 
 
 
