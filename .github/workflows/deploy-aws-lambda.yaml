@@ -54,17 +54,21 @@ jobs:
   
   continuous-deployment:
     runs-on: ubuntu-latest
-    #needs: [continuous-integration]    
-    strategy:
-      matrix:
-        node-version: [10.x]
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@main
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
+    #needs: [continuous-integration]
+    container:
+      image: 095518905647.dkr.ecr.us-east-2.amazonaws.com/bert-lambda-docker@sha256:e41de8e7b397c5af138e8831f4b8855f77cf8322195f281500f177e2eb2164d5
+    steps:  
+    - uses: actions/checkout@v2    
+    # strategy:
+    #   matrix:
+    #     node-version: [10.x]
+    # if: github.ref == 'refs/heads/main'
+    # steps:
+    #   - uses: actions/checkout@main
+    #   - name: Use Node.js ${{ matrix.node-version }}
+    #     uses: actions/setup-node@v1
+    #     with:
+    #       node-version: ${{ matrix.node-version }}
       - name: Install Dependencies
         run: |
           npm install
