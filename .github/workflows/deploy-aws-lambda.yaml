@@ -74,7 +74,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
       - name: Serverless Deploy
-        run: npm deploy
+        run: npm run deploy
 
 
 
