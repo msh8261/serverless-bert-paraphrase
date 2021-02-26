@@ -20,9 +20,9 @@ jobs:
         run: |
           npm install
           npm install serverless --save-dev
-      container:
+    - container:
         image: 095518905647.dkr.ecr.us-east-2.amazonaws.com/bert-lambda-docker@sha256:e41de8e7b397c5af138e8831f4b8855f77cf8322195f281500f177e2eb2164d5
-      
+        
       - name: Serverless Deploy
         run: node ./node_modules/serverless/bin/serverless deploy
 
