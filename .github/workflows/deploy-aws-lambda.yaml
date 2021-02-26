@@ -55,18 +55,18 @@ jobs:
   continuous-deployment:
     runs-on: ubuntu-latest
     #needs: [continuous-integration]    
-    strategy:
-      matrix:
-        node-version: [10.x]
+    # strategy:
+    #   matrix:
+    #     node-version: [10.x]
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@main
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install Dependencies
-        run: npm install
+      # - name: Use Node.js ${{ matrix.node-version }}
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: ${{ matrix.node-version }}
+      # - name: Install Dependencies
+      #   run: npm install
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
