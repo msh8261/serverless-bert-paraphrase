@@ -19,14 +19,12 @@ event3 = {"body": ["The sky is blue and beautiful.",
         }
 
 
-url = "https://njel85h50f.execute-api.us-east-2.amazonaws.com/dev/qa"
+url = "https://.execute-api.region.amazonaws.com/dev/qa"
 
 r = requests.post(url, json=event3)
 print("result without securely key: ", r.json())
 
 
-
-# key = {'x-api-key': 'tI95Zb3Ikr5l8jK1o3DDN4BOzFDLi13y3GYZ5uDW'}
 
 
 # r = requests.post(url, json.dumps(event), headers=key)
