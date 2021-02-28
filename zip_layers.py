@@ -11,9 +11,7 @@ def zipdir(path, ziph):
             ziph.write(os.path.join(root, file))
 
 base_dir = os.getcwd()
-# I hate doing this but you need to actually change your working directory to the folder you need
-# otherwise the zip will include subfolders for all folders between your current working directory
-# and the directory you want to zip
+
 
 
 os.chdir('layers/transformers')
