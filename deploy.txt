@@ -3,6 +3,8 @@
 # Note: for running with ecr as docker image no need plugin sure to delete it in 
   serverless file.
 
+# Note: be sure in your query you should have {"body":""} to get response from 		api gateway
+
 # remove all images and container not working
 docker system prune -a
 
@@ -36,3 +38,10 @@ docker stop <container id>
 
 # deploy your app
 6- serverless deploy
+
+# Note: in this project test in lambda was ok but for api gateway
+  had problem because of mapping if in post method in Integration Request part
+  the Use Lambda Proxy integration was ticked to solve 
+    1.remove the tick  
+	2. In the Method Response section under created OPTIONS method added 200 OK
+	3. Selected Option method and enabled CORS from menu

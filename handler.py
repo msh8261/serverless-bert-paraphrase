@@ -13,9 +13,13 @@ model = AutoModelForSequenceClassification.from_pretrained("./model")
 
 
 
+
+
 def handler(event, context):
-	sequence_0 = event["sequence_0"]
-	sequence_1 = event["sequence_1"]
+
+	body = event["body"]
+	sequence_0 = body[0]
+	sequence_1 = body[1]
 	not_paraphrase = tokenizer(sequence_0, sequence_1, return_tensors="pt")
 
 	not_paraphrase_classification_logits = model(**not_paraphrase)
@@ -39,14 +43,14 @@ def handler(event, context):
 
 
 
-# event1 = {
-# 		"sequence_0": "The company HuggingFace is based in New York City",
-# 		"sequence_1": "Apples are especially bad for your health"
+# event1 = {"body":[
+# 		 "The company HuggingFace is based in New York City",
+# 		 "Apples are especially bad for your health"]
 # 		}
 
-# event2 = {
-# 		"sequence_0": "The company HuggingFace is based in New York City",
-# 		"sequence_1": "HuggingFace's headquarters are situated in Manhattan"
+# event2 = {"body":[
+# 		 "The company HuggingFace is based in New York City",
+# 		 "HuggingFace's headquarters are situated in Manhattan"]
 # 		}
 
 

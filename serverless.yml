@@ -9,7 +9,7 @@ provider:
 
 functions:
   questionanswering:
-    image: 095518905647.dkr.ecr.us-east-2.amazonaws.com/bert-lambda-docker@sha256:e41de8e7b397c5af138e8831f4b8855f77cf8322195f281500f177e2eb2164d5 #ecr url
+    image: 095518905647.dkr.ecr.us-east-2.amazonaws.com/bert-lambda-docker@sha256:839c8bc0542149560d2ca7625127836dfb17a3831b2628a3c5cc52bbe842c701 #ecr url
     events:
       - http:
           path: qa # http path

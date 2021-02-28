@@ -8,6 +8,8 @@ jobs:
   continuous-deployment:
     runs-on: ubuntu-latest
     #needs: [continuous-integration]
+    container:
+      image: 095518905647.dkr.ecr.us-east-2.amazonaws.com/bert-lambda-docker@sha256:e41de8e7b397c5af138e8831f4b8855f77cf8322195f281500f177e2eb2164d5
     steps:  
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -20,8 +22,6 @@ jobs:
         run: |
           npm install
           npm install serverless --save-dev
-      - uses: image: 095518905647.dkr.ecr.us-east-2.amazonaws.com/bert-lambda-docker@sha256:e41de8e7b397c5af138e8831f4b8855f77cf8322195f281500f177e2eb2164d5
-        
       - name: Serverless Deploy
         run: node ./node_modules/serverless/bin/serverless deploy
 

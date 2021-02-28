@@ -12,16 +12,15 @@ def test_add():
 	assert 2 == a
 
 
-event1 = {
-        "sequence_0": "The company HuggingFace is based in New York City",
-        "sequence_1": "Apples are especially bad for your health"
+event1 = {"body":[
+         "The company HuggingFace is based in New York City",
+         "Apples are especially bad for your health"]
         }
 
-event2 = {
-        "sequence_0": "The company HuggingFace is based in New York City",
-        "sequence_1": "HuggingFace's headquarters are situated in Manhattan"
+event2 = {"body":[
+         "The company HuggingFace is based in New York City",
+         "HuggingFace's headquarters are situated in Manhattan"]
         }
-
 
 def test_handler1():
     res = handler(event1, "")
